@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
+import { LayoutWrapper } from "@/components/layout/LayoutWrapper";
+import { siteConfig } from "@/lib/data/config";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -9,8 +11,19 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio | Software Engineer",
-  description: "Portfolio of a Software Engineer, DevOps, AI, and Full Stack Developer.",
+  title: `${siteConfig.name} | ${siteConfig.title}`,
+  description: siteConfig.tagline,
+  metadataBase: new URL("https://adithyathaninki.com"),
+  openGraph: {
+    title: `${siteConfig.name} | ${siteConfig.title}`,
+    description: siteConfig.tagline,
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.name} | ${siteConfig.title}`,
+    description: siteConfig.tagline,
+  },
 };
 
 export default function RootLayout({
@@ -21,9 +34,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${inter.variable} font-sans antialiased bg-black text-white selection:bg-white selection:text-black`}
+        className={`${inter.variable} font-sans antialiased`}
       >
-        <SmoothScroll>{children}</SmoothScroll>
+        <SmoothScroll>
+          <LayoutWrapper>{children}</LayoutWrapper>
+        </SmoothScroll>
       </body>
     </html>
   );

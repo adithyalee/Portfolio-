@@ -2,6 +2,8 @@
 
 import { Reveal } from "@/components/animations/Reveal";
 import { MoveRight } from "lucide-react";
+import { siteConfig } from "@/lib/data/config";
+import { portfolio } from "@/content/portfolio";
 
 export function ContactSection() {
     return (
@@ -15,12 +17,12 @@ export function ContactSection() {
                     <p className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-balance !leading-[1.1]">
                         AVAILABLE FOR NEW CO-OP OPPORTUNITIES.
                         <br />
-                        <span className="text-zinc-400">LET'S BUILD.</span>
+                        <span className="text-zinc-400">LET&apos;S BUILD.</span>
                     </p>
 
                     <div className="mt-12 md:mt-24 w-full">
-                        <a href="mailto:hello@example.com" className="group inline-flex items-center gap-6 text-2xl md:text-4xl lg:text-5xl font-semibold border-b-2 border-black pb-4 hover:pr-8 transition-all duration-300">
-                            hello@example.com
+                        <a href={`mailto:${siteConfig.email}`} className="group inline-flex items-center gap-6 text-2xl md:text-4xl lg:text-5xl font-semibold border-b-2 border-black pb-4 hover:pr-8 transition-all duration-300">
+                            {siteConfig.email}
                             <MoveRight className="w-8 h-8 md:w-12 md:h-12 group-hover:translate-x-4 transition-transform duration-300" />
                         </a>
                     </div>
@@ -32,9 +34,9 @@ export function ContactSection() {
                     <p className="text-zinc-500 font-mono text-sm uppercase tracking-wider">© 2026 / All Rights Reserved</p>
                 </Reveal>
                 <Reveal delay={0.3} className="flex items-center gap-8">
-                    <a href="#" className="font-mono text-sm uppercase tracking-wider text-black hover:text-zinc-500 transition-colors">LinkedIn</a>
-                    <a href="#" className="font-mono text-sm uppercase tracking-wider text-black hover:text-zinc-500 transition-colors">GitHub</a>
-                    <a href="#" className="font-mono text-sm uppercase tracking-wider text-black hover:text-zinc-500 transition-colors">Twitter</a>
+                    <a href={siteConfig.socials.linkedin} target="_blank" rel="noreferrer" className="font-mono text-sm uppercase tracking-wider text-black hover:text-zinc-500 transition-colors">LinkedIn</a>
+                    <a href={siteConfig.socials.github} target="_blank" rel="noreferrer" className="font-mono text-sm uppercase tracking-wider text-black hover:text-zinc-500 transition-colors">GitHub</a>
+                    <a href={`mailto:${siteConfig.email}`} className="font-mono text-sm uppercase tracking-wider text-black hover:text-zinc-500 transition-colors">Email</a>
                 </Reveal>
             </div>
         </section>

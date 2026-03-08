@@ -2,24 +2,178 @@
 
 @theme {
   --font-sans: var(--font-inter);
+  --color-bg: #070708;
+  --color-fg: #f4f4f5;
+  --color-muted: #a1a1aa;
+  --color-muted-2: #71717a;
+  --color-border: color-mix(in oklab, #ffffff 10%, transparent);
+  --color-accent: #ff4d00;
+  --color-accent-2: #ff8a00;
+  --radius-xl: 20px;
+
+  /* Legacy tokens used across sections */
+  --bg: var(--color-bg);
+  --surface: color-mix(in oklab, #ffffff 6%, var(--color-bg));
+  --surface-2: color-mix(in oklab, #ffffff 9%, var(--color-bg));
+  --text: var(--color-fg);
+  --muted: var(--color-muted);
+  --muted-2: var(--color-muted-2);
+  --border: var(--color-border);
+  --accent: var(--color-accent);
+
+  /* Layout scale */
+  --gutter: clamp(18px, 4vw, 64px);
+  --section-pad: clamp(72px, 10vh, 140px);
+
+  /* Type scale */
+  --text-h1: clamp(44px, 7vw, 96px);
+  --text-h2: clamp(28px, 3.8vw, 54px);
+  --text-h3: clamp(18px, 2.3vw, 28px);
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
-}
 
-:root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  .container-main {
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--gutter);
+    padding-right: var(--gutter);
+  }
+
+  .section-pad {
+    padding-top: var(--section-pad);
+    padding-bottom: var(--section-pad);
+  }
+
+  .focus-ring {
+    outline: none;
+  }
+  .focus-ring:focus-visible {
+    box-shadow:
+      0 0 0 2px color-mix(in oklab, var(--accent) 70%, transparent),
+      0 0 0 6px color-mix(in oklab, var(--accent) 18%, transparent);
+    border-radius: 10px;
+  }
+
+  .grid-fade {
+    background-image: radial-gradient(
+        1200px 800px at 60% 10%,
+        color-mix(in oklab, var(--color-accent) 22%, transparent),
+        transparent 60%
+      ),
+      radial-gradient(
+        900px 700px at 15% 30%,
+        color-mix(in oklab, var(--color-accent-2) 14%, transparent),
+        transparent 55%
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in oklab, #ffffff 6%, transparent),
+        transparent 35%
+      );
+  }
+
+  .hairline {
+    border-color: var(--color-border);
+  }
+
+  .glow {
+    box-shadow:
+      0 0 0 1px color-mix(in oklab, var(--color-accent) 18%, transparent),
+      0 30px 120px color-mix(in oklab, var(--color-accent) 24%, transparent);
+  }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg);
+  color: var(--text);
   font-family: var(--font-inter), Arial, Helvetica, sans-serif;
   overflow-x: hidden;
+}
+
+html {
+  scroll-padding-top: 80px;
+}
+
+a, button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Hologram / glass utilities (used in Projects) */
+.holo-frame {
+  position: relative;
+  isolation: isolate;
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--color-accent) 14%, transparent),
+    0 28px 120px color-mix(in oklab, var(--color-accent) 22%, transparent);
+}
+
+.holo-frame::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0.65;
+  background:
+    radial-gradient(900px 500px at 10% 25%, rgba(255, 77, 0, 0.28), transparent 60%),
+    radial-gradient(900px 500px at 90% 20%, rgba(0, 255, 255, 0.18), transparent 55%),
+    linear-gradient(120deg, rgba(255, 255, 255, 0.06), transparent 35%, rgba(255, 138, 0, 0.12), transparent 70%);
+  mix-blend-mode: screen;
+  animation: holo-spectral 7s linear infinite;
+}
+
+.holo-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0.22;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 255, 255, 0.06) 1px,
+      rgba(0, 0, 0, 0) 3px,
+      rgba(0, 0, 0, 0) 6px
+    );
+  mix-blend-mode: overlay;
+  animation: holo-scanlines 2.2s linear infinite;
+}
+
+.holo-media {
+  transform: translateZ(0);
+  filter: saturate(1.12) contrast(1.08);
+}
+
+@keyframes holo-spectral {
+  0% {
+    transform: translate3d(-2%, -1%, 0) rotate(0.001deg);
+    filter: hue-rotate(0deg);
+  }
+  50% {
+    transform: translate3d(2%, 1%, 0) rotate(0.001deg);
+    filter: hue-rotate(14deg);
+  }
+  100% {
+    transform: translate3d(-2%, -1%, 0) rotate(0.001deg);
+    filter: hue-rotate(0deg);
+  }
+}
+
+@keyframes holo-scanlines {
+  0% {
+    transform: translateY(-12px);
+  }
+  100% {
+    transform: translateY(12px);
+  }
 }
 
 /* Lenis Smooth Scroll Configuration */
@@ -45,6 +199,6 @@ html.lenis, html.lenis body {
 
 /* Custom Selection */
 ::selection {
-  background-color: #ffffff;
-  color: #000000;
+  background-color: var(--color-fg);
+  color: var(--color-bg);
 }

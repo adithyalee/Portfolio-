@@ -1,27 +1,31 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 export const Reveal = ({
     children,
     delay = 0,
     className = "",
+    y = 50,
 }: {
     children: React.ReactNode;
     delay?: number;
     className?: string;
+    y?: number;
 }) => {
+    const reduce = useReducedMotion();
     return (
         <motion.div
-            initial={{ y: 50, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
+            initial={reduce ? { opacity: 1 } : { y, opacity: 0 }}
+            whileInView={reduce ? { opacity: 1 } : { y: 0, opacity: 1 }}
             viewport={{ once: true, margin: "-10%" }}
             transition={{
-                duration: 0.8,
+                duration: reduce ? 0 : 0.8,
                 delay,
                 ease: [0.21, 0.47, 0.32, 0.98],
             }}
-            className={className}
+            className={cn(className)}
         >
             {children}
         </motion.div>

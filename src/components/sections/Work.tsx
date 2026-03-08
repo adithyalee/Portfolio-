@@ -2,24 +2,7 @@
 
 import { Reveal } from "@/components/animations/Reveal";
 import { ArrowUpRight } from "lucide-react";
-
-const PROJECTS = [
-    {
-        title: "AI INTELLIGENCE",
-        category: "Machine Learning / Backend",
-        year: "2025",
-    },
-    {
-        title: "CLOUD METRICS",
-        category: "DevOps / Infrastructure",
-        year: "2024",
-    },
-    {
-        title: "SAAS DASHBOARD",
-        category: "Full Stack / Next.js",
-        year: "2024",
-    },
-];
+import { portfolio } from "@/content/portfolio";
 
 export function WorkSection() {
     return (
@@ -31,15 +14,15 @@ export function WorkSection() {
             </Reveal>
 
             <div className="flex flex-col">
-                {PROJECTS.map((project, index) => (
+                {portfolio.projects.map((project, index) => (
                     <Reveal key={index} delay={index * 0.1}>
                         <div className="group relative border-b border-zinc-800 py-12 md:py-16 flex flex-col md:flex-row md:items-center justify-between gap-6 cursor-pointer transition-colors hover:bg-zinc-900/50">
                             <div className="flex flex-col gap-2 relative z-10 px-4">
                                 <h3 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight group-hover:pl-4 transition-all duration-500 text-balance">
                                     {project.title}
                                 </h3>
-                                <span className="text-zinc-500 text-sm md:text-base font-mono uppercase tracking-wider group-hover:pl-4 transition-all duration-500 delay-75">
-                                    {project.category}
+                                <span className="text-zinc-500 text-sm md:text-base font-mono uppercase tracking-wider group-hover:pl-4 transition-all duration-500 delay-75 text-balance">
+                                    {project.role} / {project.subtitle}
                                 </span>
                             </div>
                             <div className="flex items-center justify-between md:justify-end gap-12 w-full md:w-auto px-4 relative z-10">
